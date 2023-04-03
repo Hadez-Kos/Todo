@@ -1,18 +1,25 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DeleteView, UpdateView
 from .models import *
+from .utils import DataMixin
+
 
 # Create your views here.
-menu = ["О сайте", "Добавить задачу", "Фильтр", "Войти"]
 
 
-class ToDoHome(ListView):
+class ToDoHome(DataMixin, ListView):
     model = ToDo
     template_name = 'simpletodo/home.html'
     context_object_name = 'posts'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Список задач"
-        context['menu'] = menu
-        return context
+        c_def = self.get_user_context(title="Главная страница")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class DeleteToDo(DeleteView):
+    model = ToDo
+    slug_url_kwarg = 'post_slug'
+    success_url = reverse_lazy('home')

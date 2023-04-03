@@ -17,9 +17,6 @@
 			{% block mainmenu %}
 			<div class="header">
 				<ul id="mainmenu" class="mainmenu">
-					<li class="logo"><a href="#">
-						<div class="logo"></div>
-					</a></li>
 					{% for m in menu %}
 					{% if not forloop.last %}
 					<li><a href="#">{{m.title}}</a></li>
@@ -38,7 +35,6 @@
 					<!-- Sidebar слева -->
 					<td valign="top" class="left-chapters">
 						<ul id="leftchapters">
-                            <li class="selected">Все категории</li>
                             <li><a href="#">Выполнено</a></li>
                             <li><a href="#">В работе</a></li>
                         </ul>
