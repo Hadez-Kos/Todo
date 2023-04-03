@@ -1,15 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Начало</title>
-</head>
-<body>
-{% for p in posts %}
-<li>
-    <h2>{{p.title}}</h2>
-    <p>{{p.content}}</p>
-</li>
-{% endfor %}
-</body>
-</html>
+{% extends 'simpletodo/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Panels with Contextual Classes</h2>
+    {% for p in posts %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ p.title }}</h3>
+        </div>
+        <div class="panel-body">
+            {{ p.content }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
