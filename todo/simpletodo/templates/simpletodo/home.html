@@ -1,19 +1,21 @@
 {% extends 'simpletodo/base.html' %}
 
 {% block content %}
-
-<div class="container">
-    <h2>Panels with Contextual Classes</h2>
-    {% for p in posts %}
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{ p.title }}</h3>
-        </div>
-        <div class="panel-body">
-            {{ p.content }}
-        </div>
-    </div>
-    {% endfor %}
-</div>
-
+<ul class="list-articles">
+	{% for p in posts %}
+	<div class="panel panel-danger">
+		<div class="panel-heading"><h2>{{p.title}}</h2></div>
+		<div class="panel-body">
+			{% autoescape on %}
+			{{p.content}}
+			{% endautoescape %}
+		</div>
+		<p class="link-read-post">
+			<a href="#" class="color-bt-g">Закончить</a>
+			<a href="#" class="color-bt-r">Удалить</a>
+		</p>
+		</li>
+	</div>
+	{% endfor %}
+</ul>
 {% endblock %}
