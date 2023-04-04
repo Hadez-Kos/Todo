@@ -22,6 +22,7 @@ class ToDoHome(DataMixin, ListView):
 
 
 class CreateToDo(DataMixin, CreateView):
+    model = ToDo
     form_class = AddTask
     template_name = 'simpletodo/addtask.html'
     success_url = reverse_lazy('home')
