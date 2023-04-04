@@ -1,8 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DeleteView, UpdateView
+from django.views.generic import ListView, DeleteView, UpdateView, CreateView
+from .utils import *
 from .models import *
-from .utils import DataMixin
+from .forms import *
 
 
 # Create your views here.
@@ -19,6 +21,17 @@ class ToDoHome(DataMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
+class CreateToDo(DataMixin, CreateView):
+    form_class = AddTask
+    template_name = 'simpletodo/addtask.html'
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Добавить задачу")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
 class DeleteToDo(DataMixin, DeleteView):
     model = ToDo
     success_url = reverse_lazy('home')
@@ -29,3 +42,11 @@ class DeleteToDo(DataMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title="Удаление задачи")
         return dict(list(context.items()) + list(c_def.items()))
+
+
+def about(request):
+    return render(request, 'women/about.html', {'menu': menu, 'title': 'О сайте'})
+
+
+def login(request):
+    return HttpResponse("Авторизация")
