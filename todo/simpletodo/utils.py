@@ -15,10 +15,12 @@ class DataMixin:
         context = kwargs
         cats = Category.objects.all()
         sols = Solution.objects.all()
-
         user_menu = menu.copy()
         if not self.request.user.is_authenticated:
+            context['posts'] = []
             user_menu.pop(1)
+        else:
+            context['posts'] = ToDo.objects.filter(user_id=self.request.user.id)
         context['menu'] = user_menu
         context['cats'] = cats
         context['sols'] = sols
