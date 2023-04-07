@@ -21,10 +21,10 @@ class DataMixin:
         if not self.request.user.is_authenticated:
             context['posts'] = []
             user_menu.pop(1)
-        elif self.request.user.is_authenticated and context['is_status'] is None:
-            context['posts'] = ToDo.objects.filter(user_id=self.request.user.id)
-        else:
+        elif self.request.user.is_authenticated and 'is_status' in context:
             context['posts'] = ToDo.objects.filter(user_id=self.request.user.id, is_status=context['is_status'])
+        else:
+            context['posts'] = ToDo.objects.filter(user_id=self.request.user.id)
 
         context['menu'] = user_menu
         context['cats'] = cats
