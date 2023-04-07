@@ -53,7 +53,7 @@ class DeleteToDo(LoginRequiredMixin, DataMixin, DeleteView):
 
 
 def about(request):
-    return render(request, 'women/about.html', {'menu': menu, 'title': 'О сайте'})
+    return render(request, 'simpletodo/about.html', {'menu': menu, 'title': 'О сайте'})
 
 
 class RegisterUser(DataMixin, CreateView):
