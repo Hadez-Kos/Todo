@@ -1,15 +1,12 @@
-from django.db.models import Count
-
 from .models import *
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить задачу", 'url_name': 'add_task'},
-        {'title': "Мои задачи", 'url_name': 'home'},
+        {'title': "Все задачи", 'url_name': 'home'},
         ]
 
 
 class DataMixin:
-    paginate_by = 3
 
     def get_user_context(self, **kwargs):
         context = kwargs
@@ -30,3 +27,15 @@ class DataMixin:
         context['cats'] = cats
         context['sols'] = sols
         return context
+
+    def color_solution(self, objects):
+        for object in objects:
+            match object.name.lower():
+                case 'легко':
+                    object.name = "panel panel-success"
+                case 'средне':
+                    object.name = "panel panel-warning"
+                case 'сложно':
+                    object.name = "panel panel-danger"
+
+        return objects

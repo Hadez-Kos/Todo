@@ -4,7 +4,7 @@
 <ul class="list-articles">
 	{% for p in posts %}
 	<div class="panel panel-danger">
-		<div class="panel-heading"><h2>{{p.title}}</h2></div>
+		<div class="panel-heading"><h2>{{p.title}} {{p.sol}}</h2></div>
 		<div class="panel-body">
 			{% autoescape on %}
 			{{p.content}}
@@ -16,7 +16,6 @@
 			{% endif %}
 			<a href="{% url 'delete_task' p.id %}" class="color-bt-r">Удалить</a>
 		</p>
-		</li>
 	</div>
 	{% endfor %}
 </ul>
