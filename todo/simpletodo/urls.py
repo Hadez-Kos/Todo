@@ -11,4 +11,5 @@ urlpatterns = [
     path('register/', RegisterUser.as_view(), name='register'),
     path('finish/', FinishToDO.as_view(), name='fin'),
     path('working/', WorkToDO.as_view(), name='work'),
+    path('update/<int:pk>/', UpdateTask.as_view(), name='update_task')
 ]
