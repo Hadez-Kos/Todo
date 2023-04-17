@@ -4,15 +4,18 @@
 <ul class="list-articles">
 	{% for p in posts %}
 	<div class="panel panel-danger">
-		<div class="panel-heading"><h2>{{p.title}}</h2> {{p.sol}}</div>
+		<div class="panel-heading"><h2>{{p.title}} - {{p.cat}}</h2> <h3>Уровень: {{p.sol}}</h3></div>
 		<div class="panel-body">
 			{% autoescape on %}
 			{{p.content}}
 			{% endautoescape %}
 		</div>
 		<p class="link-read-post">
+			<a href="{% url 'update_task' p.id %}" class="color-bt-g">Исправить</a>
 			{% if p.is_status != False %}
-			<a href="{% url 'update_task' p.id %}" class="color-bt-g">Обновить</a>
+			<a href="{% url 'ref_status' p.id %}" class="color-bt-b">Закрыть</a>
+			{% else %}
+			<a href="{% url 'ref_status' p.id %}" class="color-bt-b">Открыть</a>
 			{% endif %}
 			<a href="{% url 'delete_task' p.id %}" class="color-bt-r">Удалить</a>
 		</p>

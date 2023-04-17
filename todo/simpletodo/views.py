@@ -15,8 +15,8 @@ from .forms import *
 
 class ToDoHome(DataMixin, ListView):
     model = ToDo
-    template_name = 'simpletodo/home.html'
-    context_object_name = 'posts'
+    template_name = "simpletodo/home.html"
+    context_object_name = "posts"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -27,8 +27,8 @@ class ToDoHome(DataMixin, ListView):
 class CreateToDo(LoginRequiredMixin, DataMixin, CreateView):
     model = ToDo
     form_class = AddTask
-    template_name = 'simpletodo/addtask.html'
-    success_url = reverse_lazy('home')
+    template_name = "simpletodo/addtask.html"
+    success_url = reverse_lazy("home")
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -40,26 +40,27 @@ class CreateToDo(LoginRequiredMixin, DataMixin, CreateView):
         return super(CreateToDo, self).form_valid(form)
 
 
-class DeleteToDo(LoginRequiredMixin, DataMixin, DeleteView):
-    model = ToDo
-    success_url = reverse_lazy('home')
-    context_object_name = 'object'
-    template_name = 'simpletodo/delete.html'
+def DeleteToDo(request, pk):
+    todo = ToDo.objects.get(id=pk)
+    todo.delete()
+    return redirect("home")
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Удаление задачи")
-        return dict(list(context.items()) + list(c_def.items()))
+
+def refactor_status(request, pk):
+    todo = ToDo.objects.get(id=pk)
+    todo.is_status = not todo.is_status
+    todo.save()
+    return redirect("home")
 
 
 def about(request):
-    return render(request, 'simpletodo/about.html', {'menu': menu, 'title': 'О сайте'})
+    return render(request, "simpletodo/about.html", {"menu": menu, "title": "О сайте"})
 
 
 class RegisterUser(DataMixin, CreateView):
     form_class = RegisterUserForm
-    template_name = 'simpletodo/register.html'
-    success_url = reverse_lazy('login')
+    template_name = "simpletodo/register.html"
+    success_url = reverse_lazy("login")
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -69,12 +70,12 @@ class RegisterUser(DataMixin, CreateView):
     def form_valid(self, form):
         user_ = form.save()
         login(self.request, user_)
-        return redirect('home')
+        return redirect("home")
 
 
 class LoginUser(DataMixin, LoginView):
     form_class = LoginUserForm
-    template_name = 'simpletodo/login.html'
+    template_name = "simpletodo/login.html"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -82,18 +83,18 @@ class LoginUser(DataMixin, LoginView):
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy("home")
 
 
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect("login")
 
 
 class FinishToDO(DataMixin, ListView):
     model = ToDo
-    template_name = 'simpletodo/home.html'
-    context_object_name = 'posts'
+    template_name = "simpletodo/home.html"
+    context_object_name = "posts"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -103,8 +104,8 @@ class FinishToDO(DataMixin, ListView):
 
 class WorkToDO(DataMixin, ListView):
     model = ToDo
-    template_name = 'simpletodo/home.html'
-    context_object_name = 'posts'
+    template_name = "simpletodo/home.html"
+    context_object_name = "posts"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -114,10 +115,10 @@ class WorkToDO(DataMixin, ListView):
 
 class UpdateTask(DataMixin, UpdateView):
     model = ToDo
-    template_name = 'simpletodo/update_task.html'
-    context_object_name = 'task'
-    fields = ("title", "content", "is_status")
-    success_url = reverse_lazy('home')
+    template_name = "simpletodo/update_task.html"
+    context_object_name = "task"
+    fields = ("title", "content")
+    success_url = reverse_lazy("home")
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

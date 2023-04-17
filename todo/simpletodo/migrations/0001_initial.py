@@ -14,52 +14,124 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(db_index=True, max_length=100, verbose_name='Категория')),
-                ('slug', models.SlugField(max_length=255, unique=True, verbose_name='URL')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        db_index=True, max_length=100, verbose_name="Категория"
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(max_length=255, unique=True, verbose_name="URL"),
+                ),
             ],
             options={
-                'verbose_name': 'Категория',
-                'verbose_name_plural': 'Категории',
-                'ordering': ['id'],
+                "verbose_name": "Категория",
+                "verbose_name_plural": "Категории",
+                "ordering": ["id"],
             },
         ),
         migrations.CreateModel(
-            name='Solution',
+            name="Solution",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(db_index=True, max_length=100, verbose_name='Сложность')),
-                ('slug', models.SlugField(max_length=255, unique=True, verbose_name='URL')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        db_index=True, max_length=100, verbose_name="Сложность"
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(max_length=255, unique=True, verbose_name="URL"),
+                ),
             ],
             options={
-                'verbose_name': 'Сложность',
-                'verbose_name_plural': 'Сложности',
-                'ordering': ['id'],
+                "verbose_name": "Сложность",
+                "verbose_name_plural": "Сложности",
+                "ordering": ["id"],
             },
         ),
         migrations.CreateModel(
-            name='ToDo',
+            name="ToDo",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100, verbose_name='Заголовок')),
-                ('create_todo', models.DateTimeField(auto_now_add=True, verbose_name='Время создания')),
-                ('update_todo', models.DateTimeField(auto_now=True, verbose_name='Время изменения')),
-                ('content', models.TextField(blank=True, verbose_name='Описание')),
-                ('is_status', models.BooleanField(default=True, verbose_name='Выполнение')),
-                ('slug', models.SlugField(max_length=255, unique=True, verbose_name='URL')),
-                ('cat', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='simpletodo.category',
-                                          verbose_name='Категория')),
-                ('sol', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='simpletodo.solution',
-                                          verbose_name='Сложность')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL,
-                                           verbose_name='Пользователь')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=100, verbose_name="Заголовок")),
+                (
+                    "create_todo",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Время создания"
+                    ),
+                ),
+                (
+                    "update_todo",
+                    models.DateTimeField(auto_now=True, verbose_name="Время изменения"),
+                ),
+                ("content", models.TextField(blank=True, verbose_name="Описание")),
+                (
+                    "is_status",
+                    models.BooleanField(default=True, verbose_name="Выполнение"),
+                ),
+                (
+                    "slug",
+                    models.SlugField(max_length=255, unique=True, verbose_name="URL"),
+                ),
+                (
+                    "cat",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="simpletodo.category",
+                        verbose_name="Категория",
+                    ),
+                ),
+                (
+                    "sol",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="simpletodo.solution",
+                        verbose_name="Сложность",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Пользователь",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Задача',
-                'verbose_name_plural': 'Задачи',
-                'ordering': ['-create_todo', 'title'],
+                "verbose_name": "Задача",
+                "verbose_name_plural": "Задачи",
+                "ordering": ["-create_todo", "title"],
             },
         ),
     ]

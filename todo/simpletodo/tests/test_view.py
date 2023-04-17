@@ -5,8 +5,8 @@ from django.urls import reverse
 
 # Create your tests here.
 
-class ToDoModelTest(TestCase):
 
+class ToDoModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         ToDo.objects.create(

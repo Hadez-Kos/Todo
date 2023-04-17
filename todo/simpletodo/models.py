@@ -10,16 +10,24 @@ class ToDo(models.Model):
     update_todo = models.DateTimeField(auto_now=True, verbose_name="Время изменения")
     content = models.TextField(blank=True, verbose_name="Описание")
     is_status = models.BooleanField(default=True, verbose_name="Выполнение")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
-    cat = models.ForeignKey("Category", on_delete=models.PROTECT, verbose_name="Категория")
-    sol = models.ForeignKey("Solution", on_delete=models.PROTECT, verbose_name="Сложность")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="Пользователь"
+    )
+    slug = models.SlugField(
+        max_length=255, unique=True, db_index=True, verbose_name="URL"
+    )
+    cat = models.ForeignKey(
+        "Category", on_delete=models.PROTECT, verbose_name="Категория"
+    )
+    sol = models.ForeignKey(
+        "Solution", on_delete=models.PROTECT, verbose_name="Сложность"
+    )
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('post', kwargs={'post_slug': self.slug})
+        return reverse("post", kwargs={"post_slug": self.slug})
 
     class Meta:
         verbose_name = "Задача"
@@ -29,31 +37,35 @@ class ToDo(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name="Категория")
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
+    slug = models.SlugField(
+        max_length=255, unique=True, db_index=True, verbose_name="URL"
+    )
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'cat_slug': self.slug})
+        return reverse("category", kwargs={"cat_slug": self.slug})
 
     class Meta:
-        verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
-        ordering = ['id']
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+        ordering = ["id"]
 
 
 class Solution(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name="Сложность")
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
+    slug = models.SlugField(
+        max_length=255, unique=True, db_index=True, verbose_name="URL"
+    )
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('solution', kwargs={'sol_slug': self.slug})
+        return reverse("solution", kwargs={"sol_slug": self.slug})
 
     class Meta:
-        verbose_name = 'Сложность'
-        verbose_name_plural = 'Сложности'
-        ordering = ['id']
+        verbose_name = "Сложность"
+        verbose_name_plural = "Сложности"
+        ordering = ["id"]
